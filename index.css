@@ -1,0 +1,14 @@
+h3 {
+    display: flex;
+    justify-content: center;
+  }
+  thead {
+    background-color: pink;
+  }
+  #myTable {
+    margin-top: 10px;
+  }
+  td {
+    align-items: center;
+    text-align: center;
+  }
