@@ -12,7 +12,6 @@
       href="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.css"
     />
     <link rel="stylesheet" href="./index.css" />
-
     <script
       type="text/javascript"
       src="https://cdn.datatables.net/v/dt/dt-1.10.20/datatables.min.js"
@@ -22,22 +21,22 @@
     <h3>学生信息表</h3>
     <button id="addRow">新增行</button>
     <button id="delRow">删除行</button>
-
-    <table id="example" class="display" cellspacing="0" width="100%"></table>
+    <button id="edit">编辑</button>
+    <table id="example" class="display" cellspacing="0" width="100%">
 
     <script>
       var dataSet = [
-        ["张三", "男", "13", "20220512", "一年一班", "编辑"],
-        ["李四", "女", "14", "20220513", "一年一班", "删除"],
-        ["王五", "男", "12", "20220514", "一年一班", "删除"],
-        ["赵六", "女", "11", "20220515", "一年一班", "删除"],
-        ["吴七", "男", "10", "20220516", "一年一班", "删除"],
-        ["张八", "男", "13", "20220512", "一年一班", "删除"],
-        ["李九", "女", "14", "20220513", "一年一班", "删除"],
+        ["张三", "男", "13", "20220512", "一年一班"],
+        ["李四", "女", "14", "20220513", "一年一班"],
+        ["王五", "男", "12", "20220514", "一年一班"],
+        ["赵六", "女", "11", "20220515", "一年一班"],
+        ["吴七", "男", "10", "20220516", "一年一班"],
+        ["张八", "男", "13", "20220512", "一年一班"],
+        ["李九", "女", "14", "20220513", "一年一班"],
       ];
 
       $(document).ready(function () {
-        var counter = `<input type="text">`;
+        var counter = '<input type="text" width="50%">';
         var table = $("#example").DataTable({
           info: false,
           data: dataSet,
@@ -51,21 +50,6 @@
             { title: "学号" },
             { title: "班级" },
           ],
-          buttons: [
-            {
-              extend: "edit",
-              editor: example,
-              formButtons: [
-                {
-                  label: "Cancel",
-                  fn: function () {
-                    this.close();
-                  },
-                },
-                "Create new row",
-              ],
-            },
-          ],
         });
 
         $("#example tbody").on("click", "tr", function () {
@@ -76,15 +60,22 @@
             $(this).addClass("selected");
           }
         });
+
+        $("#edit").click(function () {
+            let value=table.row(".selected").data()
+          console.log('table.row(".selected")',value);
+
+        });
+
         $("#delRow").click(function () {
           table.row(".selected").remove().draw(false);
         });
 
         $("#addRow").on("click", function () {
+          console.log(this);
           table.row
             .add([counter, counter, counter, counter, counter, counter])
             .draw(false);
-          counter++;
         });
       });
     </script>
